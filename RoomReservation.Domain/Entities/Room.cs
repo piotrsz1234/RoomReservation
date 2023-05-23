@@ -24,5 +24,8 @@ namespace RoomReservation.Domain.Entities {
         public int MaxPeople { get; set; }
         
         public virtual ICollection<RoomCategory> RoomCategories { get; set; } = new HashSet<RoomCategory>();
+        public virtual ICollection<EquipmentRoom> EquipmentRooms { get; set; } = new HashSet<EquipmentRoom>();
+        public virtual Building Building { get; set; } = null!;
+        public virtual ICollection<Reservation> Reservations { get; set; } = new HashSet<Reservation>();
     }
 }

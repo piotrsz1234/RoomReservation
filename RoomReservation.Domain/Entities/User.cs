@@ -18,5 +18,7 @@ namespace RoomReservation.Domain.Entities {
         public string Password { get; set; } = string.Empty;
         [Required]
         public UserRole Role { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; } = new HashSet<Reservation>();
     }
 }

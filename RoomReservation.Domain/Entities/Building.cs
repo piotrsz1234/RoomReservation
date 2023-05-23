@@ -25,5 +25,7 @@ namespace RoomReservation.Domain.Entities {
 
         [Required]
         public string PostalCode { get; set; } = string.Empty;
+
+        public virtual ICollection<Room> Rooms { get; set; } = new HashSet<Room>();
     }
 }
