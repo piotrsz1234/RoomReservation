@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomReservation.Application", "RoomReservation.Application\RoomReservation.Application.csproj", "{EA27D365-084F-4A40-85BF-78412A09EF89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomReservation.Domain", "RoomReservation.Domain\RoomReservation.Domain.csproj", "{B20CED66-2D20-4D20-A75A-5BA3C39DE8CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{EA27D365-084F-4A40-85BF-78412A09EF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA27D365-084F-4A40-85BF-78412A09EF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA27D365-084F-4A40-85BF-78412A09EF89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B20CED66-2D20-4D20-A75A-5BA3C39DE8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20CED66-2D20-4D20-A75A-5BA3C39DE8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20CED66-2D20-4D20-A75A-5BA3C39DE8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20CED66-2D20-4D20-A75A-5BA3C39DE8CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
