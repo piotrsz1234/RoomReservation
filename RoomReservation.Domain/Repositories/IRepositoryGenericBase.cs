@@ -13,7 +13,7 @@ namespace RoomReservation.Domain.Repositories
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);
         Task SaveChangesAsync();
-        Task Remove(T entity);
+        Task RemoveAsync(T entity);
         Task<IReadOnlyCollection<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);
     }
 }

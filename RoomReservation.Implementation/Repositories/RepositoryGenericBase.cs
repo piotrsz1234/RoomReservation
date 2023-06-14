@@ -141,11 +141,12 @@ namespace RoomReservation.Implementation.Repositories {
             }
         }
 
-        public async Task Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
             try
             {
-                DbContext.Set<T>().Remove(entity);
+                entity.ModificationDateUtc = DateTime.UtcNow;
+                entity.IsDeleted = true;
 
                 await Task.CompletedTask;
             }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using RoomReservation.Application.Helpers;
 using RoomReservation.Implementation;
 
@@ -8,8 +9,12 @@ builder.Services.AddRoomReservationImplementation(builder.Configuration);
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SessionHelper>();
-builder.Services.AddAuthentication().AddCookie();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/User/SignIn";
+    options.LogoutPath = "/User/Logout";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
