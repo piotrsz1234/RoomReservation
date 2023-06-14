@@ -1,0 +1,39 @@
+﻿@model IReadOnlyCollection<RoomReservation.Domain.Contracts.Equipment.Dtos.EquipmentDto>
+@inject SessionHelper SessionHelper
+
+@if (SessionHelper.IsAdmin)
+{
+    <a asp-action="AddEdit" class="btn btn-success">Add Equipment</a>
+}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th width="100px"></th>
+        <th width="100px"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.Name</th>
+            @if (SessionHelper.IsAdmin)
+            {
+                <th>
+                    <a href="/Equipment/AddEdit?id=@item.Id" class="btn btn-primary">Edit</a>
+                </th>
+                <th>
+                    <a href="/Equipment/Remove?id=@item.Id" class="btn btn-danger">Remove</a>
+                </th>
+            }
+            else
+            {
+                <th></th>
+                <th></th>
+            }
+        </tr>
+    }
+    </tbody>
+</table>

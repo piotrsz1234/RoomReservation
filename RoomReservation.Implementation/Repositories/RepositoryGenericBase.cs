@@ -17,7 +17,7 @@ namespace RoomReservation.Implementation.Repositories {
             Logger = logger;
         }
 
-        public async Task<T?> GetOneAsync(long key, params Expression<Func<T, object>>[] includes)
+        public async Task<T?> GetOneAsync(int key, params Expression<Func<T, object>>[] includes)
         {
             try
             {
