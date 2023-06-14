@@ -1,0 +1,33 @@
+﻿@model RoomReservation.Domain.Contracts.User.Results.SignUpResult?
+
+<div class="col-8 offset-2">
+    <form action="/User/SignUp" method="POST">
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" placeholder="name@example.com" required name="Email">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Password" required name="Password">
+                    <label class="text-danger">@Model?.Error</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <div class="col-12">
+            <a asp-action="SignIn" class="btn btn-secondary">Sign In</a>
+        </div>
+    </div>
+</div>

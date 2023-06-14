@@ -3,8 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RoomReservation.Domain;
 using RoomReservation.Domain.Repositories;
+using RoomReservation.Domain.Services;
 using RoomReservation.Implementation.DbContexts;
 using RoomReservation.Implementation.Repositories;
+using RoomReservation.Implementation.Services;
 
 namespace RoomReservation.Implementation {
     public static class Extensions {
@@ -19,6 +21,8 @@ namespace RoomReservation.Implementation {
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<IUserService, UserService>();
+            
             services.AddDbContext<MainDbContext>(builder =>
             {
                 builder.UseSqlServer(configuration.GetConnectionString(Constants

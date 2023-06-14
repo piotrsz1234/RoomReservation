@@ -5,7 +5,7 @@ namespace RoomReservation.Domain {
 
         public static void LogError(this ILogger logger, Exception e)
         {
-            logger.LogError(e, "Error has occured");
+            logger.LogError(e, "{Message}\n{StackTrace}", e.Message, e.StackTrace);
         }
         
     }
