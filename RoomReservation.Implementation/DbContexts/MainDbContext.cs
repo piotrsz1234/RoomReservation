@@ -14,7 +14,7 @@ namespace RoomReservation.Implementation.DbContexts {
         public DbSet<Room> Room { get; set; } = default!;
         public DbSet<RoomCategory> RoomCategory { get; set; } = default!;
 
-        public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
+        internal MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
         {
         }
 

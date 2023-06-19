@@ -20,7 +20,8 @@ namespace RoomReservation.Implementation.Repositories {
                 {
                     Id=x.Id,
                     Name = x.Name,
-                    Address = x.Address,
+                    Street = x.Street,
+                    BuildingNumber = x.BuildingNumber,
                     City = x.City,
                     PostalCode = x.PostalCode,
                 });

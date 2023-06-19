@@ -42,7 +42,8 @@ namespace RoomReservation.Implementation.Services {
                 return new BuildingDto()
                 {
                     Id = result.Id,
-                    Address = result.Address,
+                    Street = result.Street,
+                    BuildingNumber =result.BuildingNumber,
                     City = result.City,
                     Name = result.Name,
                     PostalCode = result.PostalCode,
@@ -64,7 +65,8 @@ namespace RoomReservation.Implementation.Services {
                     : new Building();
 
                 entity.Name = model.Name;
-                entity.Address = model.Address;
+                entity.Street = model.Street;
+                entity.BuildingNumber = model.BuildingNumber;
                 entity.City = model.City;
                 entity.PostalCode = model.PostalCode;
                 entity.ModificationDateUtc = DateTime.UtcNow;
@@ -81,7 +83,8 @@ namespace RoomReservation.Implementation.Services {
                 return new BuildingDto()
                 {
                     Id = model.Id,
-                    Address = model.Address,
+                    Street = model.Street,
+                    BuildingNumber = model.BuildingNumber,
                     PostalCode = model.PostalCode,
                     City = model.City,
                     Name = model.Name,
