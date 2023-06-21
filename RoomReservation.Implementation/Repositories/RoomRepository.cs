@@ -20,8 +20,41 @@ namespace RoomReservation.Implementation.Repositories {
             {
                 return await DbContext.Room.Where(x => x.IsDeleted == false && x.Building.IsDeleted == false)
                     .Include(x => x.RoomCategories).Include("RoomCategories.Category").Include(x => x.EquipmentRooms).Include("EquipmentRooms.Equipment")
-                    .Join(DbContext.Building, x => x.BuildingId, x => x.Id, (room, building) => room)
+                    .Include(x => x.Building)
                     .Where(x => x.BuildingId == buildingId)
+                    .Select(x => new RoomDto()
+                    {
+                        Id = x.Id,
+                        RoomNumber = x.RoomNumber,
+                        MaxPeople = x.MaxPeople,
+                        BuildingId = x.BuildingId,
+                        Equipment = x.EquipmentRooms.Where(y => y.IsDeleted == false).Select(y => new EquipmentDto()
+                        {
+                            Id = y.Equipment.Id,
+                            Name = y.Equipment.Name
+                        }).ToList(),
+                        Categories = x.RoomCategories.Where(y => y.IsDeleted == false).Select(y => new CategoryDto()
+                        {
+                            Id = y.Category.Id,
+                            Name = y.Category.Name,
+                        }).ToList(),
+                    }).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e);
+                throw;
+            }
+        }
+
+        public async Task<RoomDto?> GetOneDto(int id)
+        {
+            try
+            {
+                return await DbContext.Room.Where(x => x.IsDeleted == false && x.Building.IsDeleted == false)
+                    .Include(x => x.RoomCategories).Include("RoomCategories.Category").Include(x => x.EquipmentRooms).Include("EquipmentRooms.Equipment")
+                    .Include(x => x.Building)
+                    .Where(x => x.Id == id)
                     .Select(x => new RoomDto()
                     {
                         Id = x.Id,
@@ -38,7 +71,7 @@ namespace RoomReservation.Implementation.Repositories {
                             Id = y.Category.Id,
                             Name = y.Category.Name,
                         }).ToList(),
-                    }).ToListAsync();
+                    }).FirstOrDefaultAsync();
             }
             catch (Exception e)
             {

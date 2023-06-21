@@ -27,10 +27,10 @@
             @if (SessionHelper.IsAdmin)
             {
                 <th>
-                    <a href="/Building/AddEdit?id=@item.Id" class="btn btn-primary">Edit</a>
+                    <a href="/Room/AddEdit?id=@item.Id" class="btn btn-primary">Edit</a>
                 </th>
                 <th>
-                    <a href="/Building/Remove?id=@item.Id" class="btn btn-danger">Remove</a>
+                    @* <a href="/Room/Remove?id=@item.Id" class="btn btn-danger">Remove</a> *@
                 </th>
             }
             else
