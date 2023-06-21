@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Application.Helpers;
+using RoomReservation.Domain.Contracts.Reservation.Dtos;
 using RoomReservation.Domain.Services;
 
 namespace RoomReservation.Application.Controllers
@@ -22,6 +23,31 @@ namespace RoomReservation.Application.Controllers
             var reservations = await _reservationService.GetUsersReservationsAsync(_sessionHelper.User!.UserId!.Value);
             
             return View(reservations);
+        }
+
+        [HttpGet]
+        public IActionResult Reserve()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Reserve(ReservationDto model)
+        {
+            var result = await _reservationService.ReserveAsync(model, _sessionHelper.User!.UserId!.Value);
+
+            if (result is null)
+                return RedirectToAction("Browse");
+
+            return View(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Remove(int id)
+        {
+            await _reservationService.RemoveAsync(id);
+
+            return RedirectToAction("Browse");
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model RoomReservation.Domain.Contracts.Reservation.Dtos.ReservationDto?
+
+<form asp-action="Reserve" method="post">
+    @if (Model is not null)
+    {
+        <input type="hidden" name="Id" value="@Model.Id"/>
+        <input type="hidden" name="RoomId" value="@Model.RoomId"/>
+    }
+    else
+    {
+        <input type="hidden" name="RoomId" value="@ViewContext.HttpContext.Request.Query["id"]"/>
+    }
+
+    <div class="row">
+        <div class="col-6">
+            <label class="form-label">Start date</label>
+            <input type="datetime" name="StartDate" class="form-control" value="@(Model?.StartDate.ToString("g") ?? DateTime.UtcNow.Date.ToString("g"))"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label class="form-label">Duration</label>
+                <input type="number" class="form-control" placeholder="Duration" required name="Duration" value="@(Model?.Duration ?? 1)">
+                <label class="text-danger">@(Model?.Error ?? string.Empty)</label>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <button class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

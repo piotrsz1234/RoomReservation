@@ -1,6 +1,12 @@
 ﻿@model IReadOnlyCollection<RoomReservation.Domain.Contracts.Room.Dtos.RoomDto>
 @inject SessionHelper SessionHelper
 
+@if (SessionHelper.IsAdmin)
+{
+    <a href="/Room/AddEdit?buildingId=@ViewContext.HttpContext.Request.Query["buildingId"]" class="btn btn-success">Add Room</a>
+}
+
+
 <table class="table table-striped">
     <thead>
     <tr>

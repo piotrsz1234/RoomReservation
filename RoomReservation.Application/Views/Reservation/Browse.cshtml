@@ -1,1 +1,26 @@
 ﻿@model IReadOnlyCollection<RoomReservation.Domain.Contracts.Reservation.Dtos.ReservationDto>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Building</th>
+        <th scope="col">Room number</th>
+        <th scope="col">Start date</th>
+        <th scope="col">End date</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <th>@item.BuildingName</th>
+        <th>@item.RoomNumber</th>
+        <th>@item.StartDate.ToString("f")</th>
+        <th>@item.StartDate.AddMinutes(item.Duration).ToString("f")</th>
+        <th><a href="/Reservation/Remove?id=@item.Id" class="btn btn-danger">Remove</a></th>
+    </tr>   
+}
+
+    </tbody>
+</table>
