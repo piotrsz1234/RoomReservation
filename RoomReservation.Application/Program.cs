@@ -9,6 +9,7 @@ builder.Services.AddRoomReservationImplementation(builder.Configuration);
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SessionHelper>();
+builder.Services.AddScoped<DropdownHelper>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = "/User/SignIn";

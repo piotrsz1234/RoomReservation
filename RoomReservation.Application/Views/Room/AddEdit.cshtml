@@ -1,0 +1,58 @@
+﻿@model RoomReservation.Domain.Contracts.Room.Dtos.RoomDto?
+@inject DropdownHelper DropdownHelper
+
+<form action="Room/AddEdit" method="post">
+    @if (Model is not null)
+    {
+        <input type="hidden" name="Id" value="@Model.Id"/>
+        <input type="hidden" name="BuildingId" value="@Model.BuildingId"/>
+    }
+    else
+    {
+        <input type="hidden" name="BuildingId" value="@this.ViewContext.RouteData.Values["buildingId"]"/>
+    }
+
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label class="form-label">Room Number</label>
+                <input type="text" class="form-control" placeholder="Room Number" required name="RoomNumber" value="@(Model?.RoomNumber ?? string.Empty)">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label class="form-label">Max People</label>
+                <input type="number" class="form-control" placeholder="Max People" required name="MaxPeople" value="@(Model?.MaxPeople ?? 1)">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label class="form-label">Categories</label>
+                @Html.DropDownList(string.Empty, await DropdownHelper.GetCategories(), new { @name = "Categories", @class = "form-select", multiple = "multiple", @value = $"[{string.Join(",", Model?.Categories?.Select(x => x.Id) ?? Array.Empty<int>())}]" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label class="form-label">Equipment</label>
+                @Html.DropDownList(string.Empty, await DropdownHelper.GetEquipment(), new { @name = "Equipment", @class = "form-select", multiple = "multiple", @value = $"[{string.Join(",", Model?.Equipment?.Select(x => x.Id) ?? Array.Empty<int>())}]" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <button class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

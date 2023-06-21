@@ -14,10 +14,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-8">
             <div class="mb-3">
-                <label class="form-label">Address</label>
-                <input type="text" class="form-control" placeholder="Address" required name="Address" value="@(Model?.Street ?? string.Empty)">
+                <label class="form-label">Street</label>
+                <input type="text" class="form-control" placeholder="Street" required name="Street" value="@(Model?.Street ?? string.Empty)">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label class="form-label">Building Number</label>
+                <input type="text" class="form-control" placeholder="Building Number" required name="BuildingNumber" value="@(Model?.BuildingNumber ?? string.Empty)">
             </div>
         </div>
     </div>

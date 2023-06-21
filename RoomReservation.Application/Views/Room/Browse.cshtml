@@ -1,16 +1,14 @@
-﻿@model IReadOnlyCollection<RoomReservation.Domain.Contracts.Buiding.Dtos.BuildingDto>
+﻿@model IReadOnlyCollection<RoomReservation.Domain.Contracts.Room.Dtos.RoomDto>
 @inject SessionHelper SessionHelper
-
-@if (SessionHelper.IsAdmin)
-{
-    <a href="/Building/AddEdit" class="btn btn-success">Add building</a>
-}
 
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Address</th>
+        <th scope="col">Number</th>
+        <th scope="col">Max people</th>
+        <th scope="col">Categories</th>
+        <th scope="col">Equipment</th>
+        <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
     </tr>
@@ -19,11 +17,12 @@
     @foreach (var item in Model)
     {
         <tr>
-            <th>@item.Name</th>
+            <th>@item.RoomNumber</th>
+            <th>@item.MaxPeople</th>
+            <th>@string.Join(",", item.Categories.Select(x => x.Name))</th>
+            <th>@string.Join(",", item.Equipment.Select(x => x.Name))</th>
             <th>
-                @item.Street, @item.BuildingNumber
-                <br/>
-                @item.PostalCode, @item.City
+                <a href="/Reservation/Reserve?id=@item.Id" class="btn btn-success">Reserve</a>
             </th>
             @if (SessionHelper.IsAdmin)
             {
