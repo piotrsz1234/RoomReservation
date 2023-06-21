@@ -6,22 +6,24 @@ using RoomReservation.Domain.Enums;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Implementation.Services
-{
-    internal sealed class ReservationService : ServiceBase, IReservationService
-    {
+namespace RoomReservation.Implementation.Services {
+    internal sealed class ReservationService : ServiceBase, IReservationService {
         private readonly IReservationRepository _reservationRepository;
 
-        public ReservationService(IReservationRepository reservationRepository, ILogger<ReservationService> logger) : base(logger)
+        public ReservationService(IReservationRepository reservationRepository, ILogger<ReservationService> logger) :
+            base(logger)
         {
             _reservationRepository = reservationRepository;
         }
 
         public async Task<IReadOnlyCollection<ReservationDto>> GetUsersReservationsAsync(int userId)
         {
-            try {
+            try
+            {
                 return await _reservationRepository.GetUsersAsync(userId);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Logger.LogError(e);
                 return Array.Empty<ReservationDto>();
             }
@@ -36,7 +38,19 @@ namespace RoomReservation.Implementation.Services
                     model.Error = "You cannot reserve more than 2 years ahead";
                     return model;
                 }
-                
+
+                if (model.StartDate < DateTime.UtcNow)
+                {
+                    model.Error = "Time is oneway :)";
+                    return model;
+                }
+
+                if (model.Duration <= 0)
+                {
+                    model.Error = "Duration must be more than 1 minute";
+                    return model;
+                }
+
                 var isReserved = await _reservationRepository.IsRoomFreeAsync(model.RoomId, model.StartDate,
                     model.StartDate.AddMinutes(model.Duration));
 

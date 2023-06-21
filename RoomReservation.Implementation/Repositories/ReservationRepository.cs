@@ -40,8 +40,8 @@ namespace RoomReservation.Implementation.Repositories
                 {
                     StartDate = x.StartDate,
                     EndDate = x.StartDate.AddMinutes(x.Duration)
-                }).Where(x => (x.StartDate > startDate && x.StartDate < endDate)
-                              || (x.EndDate > startDate && x.EndDate < endDate)).AnyAsync();
+                }).Where(x => (x.StartDate >= startDate && x.StartDate <= endDate)
+                              || (x.EndDate >= startDate && x.EndDate <= endDate)).AnyAsync();
             }
             catch (Exception e)
             {
