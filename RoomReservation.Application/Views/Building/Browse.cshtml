@@ -1,8 +1,7 @@
 ﻿@model IReadOnlyCollection<RoomReservation.Domain.Contracts.Buiding.Dtos.BuildingDto>
 @inject SessionHelper SessionHelper
 
-@if (SessionHelper.IsAdmin)
-{
+@if (SessionHelper.IsAdmin) {
     <a href="/Building/AddEdit" class="btn btn-success">Add building</a>
 }
 
@@ -13,11 +12,11 @@
         <th scope="col">Address</th>
         <th scope="col"></th>
         <th scope="col"></th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model) {
         <tr>
             <th>@item.Name</th>
             <th>
@@ -25,17 +24,17 @@
                 <br/>
                 @item.PostalCode, @item.City
             </th>
-            @if (SessionHelper.IsAdmin)
-            {
+            <th>
+                <a href="/Room/Browse?buildingId=@item.Id" class="btn btn-primary">Browse rooms</a>
+            </th>
+            @if (SessionHelper.IsAdmin) {
                 <th>
                     <a href="/Building/AddEdit?id=@item.Id" class="btn btn-primary">Edit</a>
                 </th>
                 <th>
                     <a href="/Building/Remove?id=@item.Id" class="btn btn-danger">Remove</a>
                 </th>
-            }
-            else
-            {
+            } else {
                 <th></th>
                 <th></th>
             }

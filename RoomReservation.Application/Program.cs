@@ -25,7 +25,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseSession();
+app.UseSession(new SessionOptions() {
+    Cookie = new CookieBuilder() {
+        SameSite = SameSiteMode.None,
+        Expiration = TimeSpan.FromDays(100),
+        MaxAge = TimeSpan.FromDays(100),
+        HttpOnly = false,
+        SecurePolicy = CookieSecurePolicy.None
+    },
+    IdleTimeout = TimeSpan.FromDays(100),
+});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();

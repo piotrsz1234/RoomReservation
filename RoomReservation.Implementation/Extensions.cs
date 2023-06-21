@@ -26,6 +26,7 @@ namespace RoomReservation.Implementation {
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IReservationService, ReservationService>();
             
             services.AddDbContext<MainDbContext>(builder =>
             {
