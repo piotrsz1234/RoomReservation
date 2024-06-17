@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Api.Middleware;
+using RoomReservation.Domain.Contracts;
 using RoomReservation.Domain.Contracts.Reservation.Dtos;
 using RoomReservation.Domain.Services;
 
@@ -39,10 +40,10 @@ namespace RoomReservation.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Remove(int id)
+        [HttpPost]
+        public async Task<IActionResult> Remove(RemoveModel model)
         {
-            await _reservationService.RemoveAsync(id);
+            await _reservationService.RemoveAsync(model.Id);
 
             return Ok();
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RoomReservation.Domain.Contracts;
 using RoomReservation.Domain.Contracts.Buiding.Dtos;
 using RoomReservation.Domain.Contracts.Buiding.Models;
 using RoomReservation.Domain.Services;
@@ -21,6 +22,14 @@ namespace RoomReservation.Api.Controllers {
 
             return result;
         }
+        
+        [HttpGet]
+        public async Task<BuildingDto?> GetOne(int id)
+        {
+            var result = await _buildingService.GetOneAsync(id);
+
+            return result;
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddEdit(AddEditBuildingModel model)
@@ -31,6 +40,14 @@ namespace RoomReservation.Api.Controllers {
                 return StatusCode(500);
 
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(RemoveModel model)
+        {
+            await _buildingService.RemoveAsync(model.Id);
+
+            return Ok(true);
         }
     }
 }

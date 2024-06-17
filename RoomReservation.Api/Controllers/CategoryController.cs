@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Api.Middleware;
+using RoomReservation.Domain.Contracts;
+using RoomReservation.Domain.Contracts.Category.Dtos;
 using RoomReservation.Domain.Contracts.Category.Models;
 using RoomReservation.Domain.Services;
 
@@ -23,6 +25,14 @@ namespace RoomReservation.Api.Controllers {
 
             return Ok(result);
         }
+        
+        [HttpGet]
+        public async Task<CategoryDto?> GetOne(int id)
+        {
+            var result = await _categoryService.GetOneAsync(id);
+
+            return result;
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddEdit(AddEditCategoryModel model)
@@ -35,10 +45,10 @@ namespace RoomReservation.Api.Controllers {
             return Ok(true);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Remove(int id)
+        [HttpPost]
+        public async Task<IActionResult> Remove(RemoveModel model)
         {
-            await _categoryService.RemoveAsync(id);
+            await _categoryService.RemoveAsync(model.Id);
 
             return Ok(true);
         }

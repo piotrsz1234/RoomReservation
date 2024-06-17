@@ -34,5 +34,23 @@ namespace RoomReservation.Api.Controllers {
                 return StatusCode(500);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn([FromBody]SignInModel model)
+        {
+            try
+            {
+                var result = await _userService.SignInAsync(model);
+
+                if (!string.IsNullOrWhiteSpace(result.Error))
+                    return StatusCode(400, result);
+
+                return Ok(result);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }

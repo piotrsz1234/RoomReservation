@@ -6,8 +6,10 @@ using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Implementation.Services {
-    internal sealed class BuildingService : ServiceBase, IBuildingService {
+namespace RoomReservation.Implementation.Services
+{
+    internal sealed class BuildingService : ServiceBase, IBuildingService
+    {
         private readonly IBuildingRepository _buildingRepository;
 
         public BuildingService(ILogger<BuildingService> logger, IBuildingRepository buildingRepository) : base(logger)
@@ -39,11 +41,10 @@ namespace RoomReservation.Implementation.Services {
                 if (result is null)
                     return null;
 
-                return new BuildingDto()
-                {
+                return new BuildingDto() {
                     Id = result.Id,
                     Street = result.Street,
-                    BuildingNumber =result.BuildingNumber,
+                    BuildingNumber = result.BuildingNumber,
                     City = result.City,
                     Name = result.Name,
                     PostalCode = result.PostalCode,
@@ -62,7 +63,9 @@ namespace RoomReservation.Implementation.Services {
             {
                 var entity = model.Id > 0
                     ? await _buildingRepository.GetOneAsync(x => x.Id == model.Id) ?? new Building()
-                    : new Building();
+                    : new Building() {
+                        InsertDateUtc = DateTime.UtcNow,
+                    };
 
                 entity.Name = model.Name;
                 entity.Street = model.Street;
@@ -72,7 +75,7 @@ namespace RoomReservation.Implementation.Services {
                 entity.ModificationDateUtc = DateTime.UtcNow;
 
                 await _buildingRepository.AddAsync(entity);
-                
+
                 await _buildingRepository.SaveChangesAsync();
 
                 return null;
@@ -80,8 +83,8 @@ namespace RoomReservation.Implementation.Services {
             catch (Exception e)
             {
                 Logger.LogError(e);
-                return new BuildingDto()
-                {
+
+                return new BuildingDto() {
                     Id = model.Id,
                     Street = model.Street,
                     BuildingNumber = model.BuildingNumber,

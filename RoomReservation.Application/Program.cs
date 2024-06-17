@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using RoomReservation.Application.Helpers;
+using RoomReservation.Application.Services;
 using RoomReservation.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddRoomReservationImplementation(builder.Configuration);
+builder.Services.AddApiImplementation();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromDays(10);

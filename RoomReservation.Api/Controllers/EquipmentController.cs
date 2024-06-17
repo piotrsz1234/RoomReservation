@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RoomReservation.Domain.Contracts.Equipment.Dtos;
 using RoomReservation.Domain.Contracts.Equipment.Models;
 using RoomReservation.Domain.Services;
 
@@ -21,6 +22,14 @@ namespace RoomReservation.Api.Controllers {
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<EquipmentDto?> GetOne(int id)
+        {
+            var result = await _equipmentService.GetOneAsync(id);
+
+            return result;
+        }
+        
         [HttpPost]
         public async Task<IActionResult> AddEdit(AddEditEquipmentModel model)
         {

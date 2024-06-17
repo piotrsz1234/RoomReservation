@@ -46,6 +46,8 @@ namespace RoomReservation.Application.Controllers {
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
                 _sessionHelper.User = result;
 
+                _sessionHelper.SignInModel = model;
+                
                 return RedirectToAction("Index", "Home");
             }
             catch

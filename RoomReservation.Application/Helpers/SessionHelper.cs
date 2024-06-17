@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RoomReservation.Domain.Contracts.User.Models;
 using RoomReservation.Domain.Contracts.User.Results;
 using RoomReservation.Domain.Enums;
 
@@ -31,5 +32,15 @@ namespace RoomReservation.Application.Helpers {
         }
 
         public bool IsAdmin => HttpContext?.Session.GetInt32("IsAdmin") == 1;
+
+        public SignInModel SignInModel {
+            get {
+                return JsonConvert.DeserializeObject<SignInModel>(
+                    HttpContext?.Session.GetString("SignInModel") ?? string.Empty);
+            }
+            set {
+                HttpContext?.Session.SetString("SignInModel", JsonConvert.SerializeObject(value));
+            }
+        }
     }
 }

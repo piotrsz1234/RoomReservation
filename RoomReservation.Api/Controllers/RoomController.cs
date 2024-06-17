@@ -20,16 +20,22 @@ namespace RoomReservation.Api.Controllers {
             
             return Ok(data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOne(int id)
+        {
+            var data = await _roomService.GetOneAsync(id);
+            
+            return Ok(data);
+        }
         
         [HttpPost]
-        public async Task<IActionResult> AddEdit(AddEditRoomModel model)
+        public async Task<IActionResult> AddEdit([FromBody] AddEditRoomModel model)
         {
-            model.Categories = Request.Form.Where(x => x.Key == "Categories").SelectMany(x => x.Value.ToString().Split(',')).Select(x => int.Parse(x)).ToArray();
-            model.Equipment = Request.Form.Where(x => x.Key == "Equipment").SelectMany(x => x.Value.ToString().Split(',')).Select(x => int.Parse(x)).ToArray();
             var result = await _roomService.AddEditAsync(model);
 
-            if (result is null)
-                return StatusCode(500);
+            if (result is not null)
+                return StatusCode(500, result);
             
             return Ok(result);
         }
