@@ -69,7 +69,7 @@ namespace RoomReservation.Application.Controllers {
             {
                 var result = await _userService.SignUpAsync(model);
 
-                if (!string.IsNullOrWhiteSpace(result.Error))
+                if (!string.IsNullOrWhiteSpace(result?.Error))
                     return View(result);
 
                 return RedirectToAction("SignIn");

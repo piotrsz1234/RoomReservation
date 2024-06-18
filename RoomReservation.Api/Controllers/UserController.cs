@@ -27,7 +27,7 @@ namespace RoomReservation.Api.Controllers {
                 if (!string.IsNullOrWhiteSpace(result.Error))
                     return StatusCode(400, result);
 
-                return Ok(true);
+                return Ok(null);
             }
             catch
             {
