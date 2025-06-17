@@ -6,8 +6,10 @@ using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Implementation.DbContexts;
 
-namespace RoomReservation.Implementation.Repositories {
-    public abstract class RepositoryGenericBase<T> : IRepositoryGenericBase<T> where T : class, IEntity {
+namespace RoomReservation.Implementation.Repositories
+{
+    public abstract class RepositoryGenericBase<T> : IRepositoryGenericBase<T> where T : class, IEntity
+    {
         protected readonly MainDbContext DbContext;
         protected readonly ILogger Logger;
 
@@ -23,10 +25,7 @@ namespace RoomReservation.Implementation.Repositories {
             {
                 var query = DbContext.Set<T>().AsQueryable();
 
-                foreach (var include in includes)
-                {
-                    query = query.Include(include);
-                }
+                foreach (var include in includes) query = query.Include(include);
 
                 return await query.FirstOrDefaultAsync(x => x.Id == key);
             }
@@ -44,10 +43,7 @@ namespace RoomReservation.Implementation.Repositories {
             {
                 var query = DbContext.Set<T>().AsQueryable();
 
-                foreach (var include in includes)
-                {
-                    query = query.Include(include);
-                }
+                foreach (var include in includes) query = query.Include(include);
 
                 return await query.FirstOrDefaultAsync(predicate);
             }
@@ -65,10 +61,7 @@ namespace RoomReservation.Implementation.Repositories {
             {
                 var query = DbContext.Set<T>().AsQueryable();
 
-                foreach (var include in includes)
-                {
-                    query = query.Include(include);
-                }
+                foreach (var include in includes) query = query.Include(include);
 
                 return await query.Where(expression).ToListAsync();
             }
@@ -85,10 +78,7 @@ namespace RoomReservation.Implementation.Repositories {
             {
                 var query = DbContext.Set<T>().AsQueryable();
 
-                foreach (var include in includes)
-                {
-                    query = query.Include(include);
-                }
+                foreach (var include in includes) query = query.Include(include);
 
                 return await query.ToListAsync();
             }
@@ -116,10 +106,7 @@ namespace RoomReservation.Implementation.Repositories {
         {
             try
             {
-                if (entity.Id == 0)
-                {
-                    await DbContext.Set<T>().AddAsync(entity);
-                }
+                if (entity.Id == 0) await DbContext.Set<T>().AddAsync(entity);
             }
             catch (Exception e)
             {

@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
 using RoomReservation.Domain;
-using RoomReservation.Domain.Contracts.Category.Dtos;
-using RoomReservation.Domain.Contracts.Category.Models;
 using RoomReservation.Domain.Contracts.Equipment.Dtos;
 using RoomReservation.Domain.Contracts.Equipment.Models;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Implementation.Services {
-    internal sealed class EquipmentService : ServiceBase, IEquipmentService {
+namespace RoomReservation.Implementation.Services
+{
+    internal sealed class EquipmentService : ServiceBase, IEquipmentService
+    {
         private readonly IEquipmentRepository _equipmentRepository;
 
         public EquipmentService(ILogger<CategoryService> logger, IEquipmentRepository equipmentRepository) : base(logger)
@@ -41,10 +41,10 @@ namespace RoomReservation.Implementation.Services {
                 if (result is null)
                     return null;
 
-                return new EquipmentDto()
+                return new EquipmentDto
                 {
                     Id = result.Id,
-                    Name = result.Name,
+                    Name = result.Name
                 };
             }
             catch (Exception e)

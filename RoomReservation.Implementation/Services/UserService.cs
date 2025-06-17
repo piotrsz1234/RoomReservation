@@ -8,8 +8,10 @@ using RoomReservation.Domain.Helpers;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Implementation.Services {
-    internal sealed class UserService : ServiceBase, IUserService {
+namespace RoomReservation.Implementation.Services
+{
+    internal sealed class UserService : ServiceBase, IUserService
+    {
         private readonly IUserRepository _userRepository;
 
         public UserService(ILogger<UserService> logger, IUserRepository userRepository) : base(logger)
@@ -23,26 +25,26 @@ namespace RoomReservation.Implementation.Services {
             {
                 var hashedPassword = SecurityHelper.HashString(model.Password);
                 var user = await _userRepository.GetOneAsync(x => x.IsDeleted == false && x.Email == model.Email
-                    && x.Password == hashedPassword);
+                                                                                       && x.Password == hashedPassword);
 
                 if (user is null)
-                    return new SignInResult()
+                    return new SignInResult
                     {
                         Error = "Wrong email or password"
                     };
 
-                return new SignInResult()
+                return new SignInResult
                 {
                     UserId = user.Id,
                     Email = user.Email,
-                    Role = user.Role,
+                    Role = user.Role
                 };
             }
             catch (Exception e)
             {
                 Logger.LogError(e);
 
-                return new SignInResult()
+                return new SignInResult
                 {
                     Error = "Unexpected error occured"
                 };
@@ -57,12 +59,12 @@ namespace RoomReservation.Implementation.Services {
                 var user = await _userRepository.GetOneAsync(x => x.IsDeleted == false && x.Email == model.Email);
 
                 if (user is not null)
-                    return new SignUpResult()
+                    return new SignUpResult
                     {
                         Error = "User with given email already exists"
                     };
 
-                await _userRepository.AddAsync(new User()
+                await _userRepository.AddAsync(new User
                 {
                     InsertDateUtc = DateTime.UtcNow,
                     ModificationDateUtc = DateTime.UtcNow,
@@ -80,7 +82,7 @@ namespace RoomReservation.Implementation.Services {
             {
                 Logger.LogError(e);
 
-                return new SignUpResult()
+                return new SignUpResult
                 {
                     Error = "Unexpected error occured"
                 };

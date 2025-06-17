@@ -1,5 +1,4 @@
-﻿@using RoomReservation.Domain.Contracts.Room.Dtos
-@model RoomReservation.Domain.Contracts.Room.Dtos.RoomDto
+﻿@model RoomReservation.Domain.Contracts.Room.Dtos.RoomDto
 @inject DropdownHelper DropdownHelper
 
 <form action="/Room/AddEdit" method="post">
@@ -17,7 +16,8 @@
         <div class="col-12">
             <div class="mb-3">
                 <label class="form-label">Room Number</label>
-                <input type="text" class="form-control" placeholder="Room Number" required name="RoomNumber" value="@(Model?.RoomNumber ?? string.Empty)">
+                <input type="text" class="form-control" placeholder="Room Number" required name="RoomNumber"
+                       value="@(Model?.RoomNumber ?? string.Empty)">
             </div>
         </div>
     </div>
@@ -26,7 +26,8 @@
         <div class="col-12">
             <div class="mb-3">
                 <label class="form-label">Max People</label>
-                <input type="number" class="form-control" placeholder="Max People" required name="MaxPeople" value="@(Model?.MaxPeople ?? 1)">
+                <input type="number" class="form-control" placeholder="Max People" required name="MaxPeople"
+                       value="@(Model?.MaxPeople ?? 1)">
             </div>
         </div>
     </div>
@@ -35,7 +36,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label class="form-label">Categories</label>
-                @Html.DropDownList("Categories", await DropdownHelper.GetCategories(), new { @class = "form-select", multiple = "multiple", @value = $"{string.Join(",", Model?.Categories?.Select(x => x.Id) ?? Array.Empty<int>())}" })
+                @Html.DropDownList("Categories", await DropdownHelper.GetCategories(), new { @class = "form-select", multiple = "multiple", value = $"{string.Join(",", Model?.Categories?.Select(x => x.Id) ?? Array.Empty<int>())}" })
             </div>
         </div>
     </div>
@@ -44,7 +45,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label class="form-label">Equipment</label>
-                @Html.DropDownList("Equipment", await DropdownHelper.GetEquipment(), new { @class = "form-select", multiple = "multiple", @value = $"{string.Join(",", Model?.Equipment?.Select(x => x.Id) ?? Array.Empty<int>())}" })
+                @Html.DropDownList("Equipment", await DropdownHelper.GetEquipment(), new { @class = "form-select", multiple = "multiple", value = $"{string.Join(",", Model?.Equipment?.Select(x => x.Id) ?? Array.Empty<int>())}" })
             </div>
         </div>
     </div>
@@ -55,7 +56,7 @@
         $('#Categories').val(categories).change();
         $('#Equipment').val(equipment).change();
     </script>
-    
+
     <div class="row">
         <div class="col-12">
             <div class="mb-3">

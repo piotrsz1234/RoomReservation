@@ -1,5 +1,7 @@
-﻿namespace RoomReservation.Domain.Contracts.Room.Models {
-    public class AddEditRoomModel {
+﻿namespace RoomReservation.Domain.Contracts.Room.Models
+{
+    public class AddEditRoomModel
+    {
         public int Id { get; set; }
         public string RoomNumber { get; set; } = string.Empty;
         public int MaxPeople { get; set; }

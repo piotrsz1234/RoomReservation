@@ -4,10 +4,14 @@ using RoomReservation.Domain;
 using RoomReservation.Domain.Contracts.Buiding.Dtos;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
+using RoomReservation.Implementation.Aspects;
 using RoomReservation.Implementation.DbContexts;
 
-namespace RoomReservation.Implementation.Repositories {
-    public class BuildingRepository : RepositoryGenericBase<Building>, IBuildingRepository {
+namespace RoomReservation.Implementation.Repositories
+{
+    [LogQueryTime]
+    public class BuildingRepository : RepositoryGenericBase<Building>, IBuildingRepository
+    {
         public BuildingRepository(MainDbContext dbContext, ILogger<BuildingRepository> logger) : base(dbContext, logger)
         {
         }
@@ -16,14 +20,14 @@ namespace RoomReservation.Implementation.Repositories {
         {
             try
             {
-                var query = DbContext.Building.Where(x => x.IsDeleted == false).Select(x => new BuildingDto()
+                var query = DbContext.Building.Where(x => x.IsDeleted == false).Select(x => new BuildingDto
                 {
-                    Id=x.Id,
+                    Id = x.Id,
                     Name = x.Name,
                     Street = x.Street,
                     BuildingNumber = x.BuildingNumber,
                     City = x.City,
-                    PostalCode = x.PostalCode,
+                    PostalCode = x.PostalCode
                 });
 
                 return await query.ToListAsync();

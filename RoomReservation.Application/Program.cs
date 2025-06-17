@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using RoomReservation.Application.Helpers;
 using RoomReservation.Application.Services;
-using RoomReservation.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,11 @@ builder.Services.AddApiImplementation();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromDays(10);
+    options.Cookie.Name = "Session";
 });
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo("/root/.aspnet/DataProtection-Keys"))
+    .SetApplicationName("RoomReservation");
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SessionHelper>();
 builder.Services.AddScoped<DropdownHelper>();
@@ -30,7 +34,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseSession();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseRouting();
@@ -38,7 +42,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

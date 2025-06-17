@@ -2,13 +2,14 @@
 using RoomReservation.Domain.Contracts.User.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Api.Controllers {
-    
+namespace RoomReservation.Api.Controllers
+{
     [ApiController]
     [Route("[controller]/[action]")]
-    public class UserController : Controller {
-        private readonly IUserService _userService;
+    public class UserController : Controller
+    {
         private readonly SessionHelper _sessionHelper;
+        private readonly IUserService _userService;
 
 
         public UserController(IUserService userService, SessionHelper sessionHelper)
@@ -18,7 +19,7 @@ namespace RoomReservation.Api.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromBody]SignUpModel model)
+        public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace RoomReservation.Api.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn([FromBody]SignInModel model)
+        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
         {
             try
             {

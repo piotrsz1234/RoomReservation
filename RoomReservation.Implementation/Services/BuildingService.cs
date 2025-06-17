@@ -41,13 +41,14 @@ namespace RoomReservation.Implementation.Services
                 if (result is null)
                     return null;
 
-                return new BuildingDto() {
+                return new BuildingDto
+                {
                     Id = result.Id,
                     Street = result.Street,
                     BuildingNumber = result.BuildingNumber,
                     City = result.City,
                     Name = result.Name,
-                    PostalCode = result.PostalCode,
+                    PostalCode = result.PostalCode
                 };
             }
             catch (Exception e)
@@ -63,8 +64,9 @@ namespace RoomReservation.Implementation.Services
             {
                 var entity = model.Id > 0
                     ? await _buildingRepository.GetOneAsync(x => x.Id == model.Id) ?? new Building()
-                    : new Building() {
-                        InsertDateUtc = DateTime.UtcNow,
+                    : new Building
+                    {
+                        InsertDateUtc = DateTime.UtcNow
                     };
 
                 entity.Name = model.Name;
@@ -84,13 +86,14 @@ namespace RoomReservation.Implementation.Services
             {
                 Logger.LogError(e);
 
-                return new BuildingDto() {
+                return new BuildingDto
+                {
                     Id = model.Id,
                     Street = model.Street,
                     BuildingNumber = model.BuildingNumber,
                     PostalCode = model.PostalCode,
                     City = model.City,
-                    Name = model.Name,
+                    Name = model.Name
                 };
             }
         }

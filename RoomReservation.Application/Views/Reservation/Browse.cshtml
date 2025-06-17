@@ -11,16 +11,16 @@
     </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
-    <tr>
-        <th>@item.BuildingName</th>
-        <th>@item.RoomNumber</th>
-        <th>@item.StartDate.ToString("f")</th>
-        <th>@item.StartDate.AddMinutes(item.Duration).ToString("f")</th>
-        <th><a href="/Reservation/Remove?id=@item.Id" class="btn btn-danger">Remove</a></th>
-    </tr>   
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.BuildingName</th>
+            <th>@item.RoomNumber</th>
+            <th>@item.StartDate.ToString("f")</th>
+            <th>@item.StartDate.AddMinutes(item.Duration).ToString("f")</th>
+            <th><a href="/Reservation/Remove?id=@item.Id" class="btn btn-danger">Remove</a></th>
+        </tr>
+    }
 
     </tbody>
 </table>

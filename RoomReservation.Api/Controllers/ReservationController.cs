@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Api.Middleware;
 using RoomReservation.Domain.Contracts;
 using RoomReservation.Domain.Contracts.Reservation.Dtos;
@@ -10,7 +9,7 @@ namespace RoomReservation.Api.Controllers
     [BasicAuthenticationFilter]
     [Route("[controller]/[action]")]
     [ApiController]
-    public class ReservationController: Controller
+    public class ReservationController : Controller
     {
         private readonly IReservationService _reservationService;
         private readonly SessionHelper _sessionHelper;
@@ -25,7 +24,7 @@ namespace RoomReservation.Api.Controllers
         public async Task<ActionResult> Browse()
         {
             var reservations = await _reservationService.GetUsersReservationsAsync(_sessionHelper.UserId.Value);
-            
+
             return Ok(reservations);
         }
 

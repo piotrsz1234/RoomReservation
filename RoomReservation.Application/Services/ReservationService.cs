@@ -13,17 +13,17 @@ namespace RoomReservation.Application.Services
 
         public async Task<IReadOnlyCollection<ReservationDto>> GetUsersReservationsAsync(int userId)
         {
-            return await Client.GetCall<IReadOnlyCollection<ReservationDto>>(new Uri(BaseUrl, $"Reservation/Browse"));
+            return await Client.GetCall<IReadOnlyCollection<ReservationDto>>(new Uri(BaseUrl, "Reservation/Browse"));
         }
 
         public async Task<ReservationDto?> ReserveAsync(ReservationDto model, int userId)
         {
-            return await Client.PostCall<ReservationDto?, ReservationDto>(new Uri(BaseUrl, $"Reservation/Reserve"), model);
+            return await Client.PostCall<ReservationDto?, ReservationDto>(new Uri(BaseUrl, "Reservation/Reserve"), model);
         }
 
         public async Task RemoveAsync(int id)
         {
-            await Client.PostCall<RemoveModel>(new Uri(BaseUrl, $"Reservation/Remove"), new RemoveModel() { Id = id });
+            await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Reservation/Remove"), new RemoveModel { Id = id });
         }
     }
 }

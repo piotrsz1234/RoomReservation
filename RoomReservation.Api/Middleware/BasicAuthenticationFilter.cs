@@ -10,8 +10,10 @@ using RoomReservation.Domain.Contracts.User.Models;
 using RoomReservation.Domain.Enums;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Api.Middleware {
-    public class BasicAuthenticationFilter : ActionFilterAttribute {
+namespace RoomReservation.Api.Middleware
+{
+    public class BasicAuthenticationFilter : ActionFilterAttribute
+    {
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (!context.HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out var headerValue))
@@ -30,13 +32,13 @@ namespace RoomReservation.Api.Middleware {
                 var encoding = Encoding.GetEncoding("iso-8859-1");
                 var credentials = encoding.GetString(Convert.FromBase64String(authHeaderVal.Parameter));
 
-                int separator = credentials.IndexOf(':');
-                string name = credentials.Substring(0, separator);
-                string password = credentials.Substring(separator + 1);
+                var separator = credentials.IndexOf(':');
+                var name = credentials.Substring(0, separator);
+                var password = credentials.Substring(separator + 1);
 
                 var userService = context.HttpContext.RequestServices.GetService<IUserService>();
 
-                var result = await userService.SignInAsync(new SignInModel()
+                var result = await userService.SignInAsync(new SignInModel
                 {
                     Email = name,
                     Password = password
@@ -54,7 +56,7 @@ namespace RoomReservation.Api.Middleware {
                         new Claim(Constants.UserIdClaimType, result.UserId.Value.ToString()),
                         new Claim(Constants.IsAdminClaimType, (result.Role == UserRole.Admin).ToString())
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
-                    
+
                     var principal = new ClaimsPrincipal(identity);
 
                     principal.AddIdentity(identity);

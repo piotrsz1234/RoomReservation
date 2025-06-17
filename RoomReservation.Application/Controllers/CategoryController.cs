@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Domain.Contracts.Category.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Application.Controllers {
-    
+namespace RoomReservation.Application.Controllers
+{
     [Authorize]
-    public class CategoryController : Controller {
+    public class CategoryController : Controller
+    {
         private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)

@@ -1,7 +1,6 @@
 ﻿using Flurl;
 using RoomReservation.Application.Helpers;
 using RoomReservation.Domain.Contracts;
-using RoomReservation.Domain.Contracts.Category.Models;
 using RoomReservation.Domain.Contracts.Equipment.Dtos;
 using RoomReservation.Domain.Contracts.Equipment.Models;
 using RoomReservation.Domain.Services;
@@ -16,7 +15,7 @@ namespace RoomReservation.Application.Services
 
         public async Task<IReadOnlyCollection<EquipmentDto>> BrowseAsync()
         {
-            return await Client.GetCall<IReadOnlyCollection<EquipmentDto>>(new Uri(BaseUrl, $"Equipment/Browse"));
+            return await Client.GetCall<IReadOnlyCollection<EquipmentDto>>(new Uri(BaseUrl, "Equipment/Browse"));
         }
 
         public async Task<EquipmentDto?> GetOneAsync(int id)
@@ -31,7 +30,7 @@ namespace RoomReservation.Application.Services
 
         public async Task<bool> RemoveAsync(int id)
         {
-             return await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Equipment/Remove"), new RemoveModel() { Id = id });
+            return await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Equipment/Remove"), new RemoveModel { Id = id });
         }
     }
 }

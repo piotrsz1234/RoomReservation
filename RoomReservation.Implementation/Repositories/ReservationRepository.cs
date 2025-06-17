@@ -4,10 +4,12 @@ using RoomReservation.Domain;
 using RoomReservation.Domain.Contracts.Reservation.Dtos;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
+using RoomReservation.Implementation.Aspects;
 using RoomReservation.Implementation.DbContexts;
 
 namespace RoomReservation.Implementation.Repositories
 {
+    [LogQueryTime]
     public class ReservationRepository : RepositoryGenericBase<Reservation>, IReservationRepository
     {
         public ReservationRepository(MainDbContext dbContext, ILogger<ReservationRepository> logger) : base(dbContext, logger)
@@ -16,17 +18,21 @@ namespace RoomReservation.Implementation.Repositories
 
         public async Task<IReadOnlyCollection<ReservationDto>> GetUsersAsync(int userId)
         {
-            try {
+            try
+            {
                 return await DbContext.Reservation.Where(x => x.UserId == userId && x.IsDeleted == false && x.StartDate >= DateTime.UtcNow)
-                    .Select(x => new ReservationDto() {
-                            StartDate = x.StartDate,
-                            Id = x.Id,
-                            RoomId = x.RoomId,
-                            Duration = x.Duration,
-                            BuildingName = x.Room.Building.Name,
-                            RoomNumber = x.Room.RoomNumber
-                        }).ToListAsync();
-            } catch (Exception e) {
+                    .Select(x => new ReservationDto
+                    {
+                        StartDate = x.StartDate,
+                        Id = x.Id,
+                        RoomId = x.RoomId,
+                        Duration = x.Duration,
+                        BuildingName = x.Room.Building.Name,
+                        RoomNumber = x.Room.RoomNumber
+                    }).ToListAsync();
+            }
+            catch (Exception e)
+            {
                 Logger.LogError(e);
                 throw;
             }
@@ -40,8 +46,8 @@ namespace RoomReservation.Implementation.Repositories
                 {
                     StartDate = x.StartDate,
                     EndDate = x.StartDate.AddMinutes(x.Duration)
-                }).Where(x => (x.StartDate >= startDate && x.StartDate <= endDate)
-                              || (x.EndDate >= startDate && x.EndDate <= endDate)).AnyAsync();
+                }).Where(x => x.StartDate >= startDate && x.StartDate <= endDate
+                              || x.EndDate >= startDate && x.EndDate <= endDate).AnyAsync();
             }
             catch (Exception e)
             {

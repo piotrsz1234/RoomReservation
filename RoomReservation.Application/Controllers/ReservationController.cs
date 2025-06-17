@@ -7,7 +7,7 @@ using RoomReservation.Domain.Services;
 namespace RoomReservation.Application.Controllers
 {
     [Authorize]
-    public class ReservationController: Controller
+    public class ReservationController : Controller
     {
         private readonly IReservationService _reservationService;
         private readonly SessionHelper _sessionHelper;
@@ -21,7 +21,7 @@ namespace RoomReservation.Application.Controllers
         public async Task<ActionResult> Browse()
         {
             var reservations = await _reservationService.GetUsersReservationsAsync(_sessionHelper.User!.UserId!.Value);
-            
+
             return View(reservations);
         }
 

@@ -3,10 +3,12 @@ using RoomReservation.Domain.Contracts.Equipment.Dtos;
 using RoomReservation.Domain.Contracts.Equipment.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Api.Controllers {
+namespace RoomReservation.Api.Controllers
+{
     [ApiController]
     [Route("[controller]/[action]")]
-    public class EquipmentController : Controller {
+    public class EquipmentController : Controller
+    {
         private readonly IEquipmentService _equipmentService;
 
         public EquipmentController(IEquipmentService equipmentService)
@@ -29,7 +31,7 @@ namespace RoomReservation.Api.Controllers {
 
             return result;
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddEdit(AddEditEquipmentModel model)
         {
@@ -48,7 +50,7 @@ namespace RoomReservation.Api.Controllers {
 
             if (!result)
                 return StatusCode(500);
-            
+
             return Ok(true);
         }
     }

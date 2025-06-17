@@ -1,6 +1,9 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using RoomReservation.Api;
 using RoomReservation.Implementation;
+using RoomReservation.Implementation.Aspects;
+using RoomReservation.Implementation.DbContexts;
+using RoomReservation.Implementation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +28,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+var context = app.Services.CreateScope().ServiceProvider.GetService<MainDbContext>();
+context.Database.Migrate();
+SeedingService.Seed(context);
+LogQueryTimeAttribute.Logger = app.Services.GetService<ILogger<LogQueryTimeAttribute>>();
+
+//app.UseHttpsRedirection();
 
 app.MapControllers();
 

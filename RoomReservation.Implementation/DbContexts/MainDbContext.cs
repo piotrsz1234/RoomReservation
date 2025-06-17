@@ -1,9 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomReservation.Domain.Entities;
 
-namespace RoomReservation.Implementation.DbContexts {
-    public class MainDbContext : DbContext {
-        private const string DefaultConnectionString = "Data Source=.;Database=RoomReservation;Trusted_Connection=True;Trust Server Certificate=true";
+namespace RoomReservation.Implementation.DbContexts
+{
+    public class MainDbContext : DbContext
+    {
+        private const string DefaultConnectionString = "Data Source=sqldata;Database=RoomReservation;Trusted_Connection=True;Trust Server Certificate=true";
+
+        public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
+        {
+        }
 
         public DbSet<User> User { get; set; } = default!;
         public DbSet<Building> Building { get; set; } = default!;
@@ -13,10 +19,6 @@ namespace RoomReservation.Implementation.DbContexts {
         public DbSet<Reservation> Reservation { get; set; } = default!;
         public DbSet<Room> Room { get; set; } = default!;
         public DbSet<RoomCategory> RoomCategory { get; set; } = default!;
-
-        public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,10 +30,7 @@ namespace RoomReservation.Implementation.DbContexts {
                 builder.HasOne(e => e.Room).WithMany(e => e.EquipmentRooms).HasForeignKey(e => e.RoomId);
             });
 
-            modelBuilder.Entity<Room>(builder =>
-            {
-                builder.HasOne(e => e.Building).WithMany(e => e.Rooms).HasForeignKey(e => e.BuildingId);
-            });
+            modelBuilder.Entity<Room>(builder => { builder.HasOne(e => e.Building).WithMany(e => e.Rooms).HasForeignKey(e => e.BuildingId); });
 
             modelBuilder.Entity<RoomCategory>(builder =>
             {
@@ -48,10 +47,7 @@ namespace RoomReservation.Implementation.DbContexts {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(DefaultConnectionString);
-            }
+            if (!optionsBuilder.IsConfigured) optionsBuilder.UseSqlServer(DefaultConnectionString);
 
             base.OnConfiguring(optionsBuilder);
         }

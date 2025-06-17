@@ -6,10 +6,14 @@ using RoomReservation.Domain.Contracts.Equipment.Dtos;
 using RoomReservation.Domain.Contracts.Room.Dtos;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
+using RoomReservation.Implementation.Aspects;
 using RoomReservation.Implementation.DbContexts;
 
-namespace RoomReservation.Implementation.Repositories {
-    public class RoomRepository : RepositoryGenericBase<Room>, IRoomRepository{
+namespace RoomReservation.Implementation.Repositories
+{
+    [LogQueryTime]
+    public class RoomRepository : RepositoryGenericBase<Room>, IRoomRepository
+    {
         public RoomRepository(MainDbContext dbContext, ILogger<RoomRepository> logger) : base(dbContext, logger)
         {
         }
@@ -22,22 +26,22 @@ namespace RoomReservation.Implementation.Repositories {
                     .Include(x => x.RoomCategories).Include("RoomCategories.Category").Include(x => x.EquipmentRooms).Include("EquipmentRooms.Equipment")
                     .Include(x => x.Building)
                     .Where(x => x.BuildingId == buildingId)
-                    .Select(x => new RoomDto()
+                    .Select(x => new RoomDto
                     {
                         Id = x.Id,
                         RoomNumber = x.RoomNumber,
                         MaxPeople = x.MaxPeople,
                         BuildingId = x.BuildingId,
-                        Equipment = x.EquipmentRooms.Where(y => y.IsDeleted == false).Select(y => new EquipmentDto()
+                        Equipment = x.EquipmentRooms.Where(y => y.IsDeleted == false).Select(y => new EquipmentDto
                         {
                             Id = y.Equipment.Id,
                             Name = y.Equipment.Name
                         }).ToList(),
-                        Categories = x.RoomCategories.Where(y => y.IsDeleted == false).Select(y => new CategoryDto()
+                        Categories = x.RoomCategories.Where(y => y.IsDeleted == false).Select(y => new CategoryDto
                         {
                             Id = y.Category.Id,
-                            Name = y.Category.Name,
-                        }).ToList(),
+                            Name = y.Category.Name
+                        }).ToList()
                     }).ToListAsync();
             }
             catch (Exception e)
@@ -55,22 +59,22 @@ namespace RoomReservation.Implementation.Repositories {
                     .Include(x => x.RoomCategories).Include("RoomCategories.Category").Include(x => x.EquipmentRooms).Include("EquipmentRooms.Equipment")
                     .Include(x => x.Building)
                     .Where(x => x.Id == id)
-                    .Select(x => new RoomDto()
+                    .Select(x => new RoomDto
                     {
                         Id = x.Id,
                         RoomNumber = x.RoomNumber,
                         MaxPeople = x.MaxPeople,
                         BuildingId = x.BuildingId,
-                        Equipment = x.EquipmentRooms.Select(y => new EquipmentDto()
+                        Equipment = x.EquipmentRooms.Select(y => new EquipmentDto
                         {
                             Id = y.Equipment.Id,
                             Name = y.Equipment.Name
                         }).ToList(),
-                        Categories = x.RoomCategories.Select(y => new CategoryDto()
+                        Categories = x.RoomCategories.Select(y => new CategoryDto
                         {
                             Id = y.Category.Id,
-                            Name = y.Category.Name,
-                        }).ToList(),
+                            Name = y.Category.Name
+                        }).ToList()
                     }).FirstOrDefaultAsync();
             }
             catch (Exception e)

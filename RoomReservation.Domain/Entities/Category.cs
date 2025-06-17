@@ -1,7 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RoomReservation.Domain.Entities {
-    public class Category : IEntity {
+namespace RoomReservation.Domain.Entities
+{
+    public class Category : IEntity
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+
+        public virtual ICollection<RoomCategory> RoomCategories { get; set; } = new HashSet<RoomCategory>();
+
         [Key]
         public int Id { get; set; }
 
@@ -13,10 +20,5 @@ namespace RoomReservation.Domain.Entities {
 
         [Required]
         public bool IsDeleted { get; set; }
-
-        [Required]
-        public string Name { get; set; } = string.Empty;
-        
-        public virtual ICollection<RoomCategory> RoomCategories { get; set; } = new HashSet<RoomCategory>();
     }
 }

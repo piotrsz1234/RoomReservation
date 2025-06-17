@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Application.Helpers;
 using RoomReservation.Domain;
 using RoomReservation.Domain.Contracts.User.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Application.Controllers {
-    public class UserController : Controller {
-        private readonly IUserService _userService;
+namespace RoomReservation.Application.Controllers
+{
+    public class UserController : Controller
+    {
         private readonly SessionHelper _sessionHelper;
+        private readonly IUserService _userService;
 
 
         public UserController(IUserService userService, SessionHelper sessionHelper)
@@ -34,11 +35,8 @@ namespace RoomReservation.Application.Controllers {
             {
                 var result = await _userService.SignInAsync(model);
 
-                if (!string.IsNullOrWhiteSpace(result.Error) || !result.UserId.HasValue)
-                {
-                    return View(result);
-                }
-                
+                if (!string.IsNullOrWhiteSpace(result.Error) || !result.UserId.HasValue) return View(result);
+
                 var identity = new ClaimsIdentity(new[]
                     { new Claim(Constants.UserIdClaimType, result.UserId.Value.ToString()) }, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
@@ -47,7 +45,7 @@ namespace RoomReservation.Application.Controllers {
                 _sessionHelper.User = result;
 
                 _sessionHelper.SignInModel = model;
-                
+
                 return RedirectToAction("Index", "Home");
             }
             catch

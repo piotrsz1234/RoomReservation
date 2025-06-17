@@ -14,16 +14,18 @@
     <div class="row">
         <div class="col-6">
             <label class="form-label">Start date</label>
-            <input type="datetime" name="StartDate" class="form-control" value="@(Model?.StartDate.ToString("g") ?? DateTime.UtcNow.Date.ToString("g"))"/>
+            <input type="datetime" name="StartDate" class="form-control"
+                   value="@(Model?.StartDate.ToString("g") ?? DateTime.UtcNow.Date.ToString("g"))"/>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
             <div class="mb-3">
                 <label class="form-label">Duration</label>
-                <input type="number" class="form-control" min="1" placeholder="Duration" required name="Duration" value="@(Model?.Duration ?? 1)">
+                <input type="number" class="form-control" min="1" placeholder="Duration" required name="Duration"
+                       value="@(Model?.Duration ?? 1)">
                 <label class="text-danger">@(Model?.Error ?? string.Empty)</label>
-                </div>
+            </div>
         </div>
     </div>
     <div class="row">

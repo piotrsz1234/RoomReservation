@@ -6,8 +6,10 @@ using RoomReservation.Domain.Enums;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Implementation.Services {
-    internal sealed class ReservationService : ServiceBase, IReservationService {
+namespace RoomReservation.Implementation.Services
+{
+    internal sealed class ReservationService : ServiceBase, IReservationService
+    {
         private readonly IReservationRepository _reservationRepository;
 
         public ReservationService(IReservationRepository reservationRepository, ILogger<ReservationService> logger) :
@@ -60,7 +62,7 @@ namespace RoomReservation.Implementation.Services {
                     return model;
                 }
 
-                var reservation = new Reservation()
+                var reservation = new Reservation
                 {
                     RoomId = model.RoomId,
                     Duration = model.Duration,
@@ -69,7 +71,7 @@ namespace RoomReservation.Implementation.Services {
                     IsConfirmed = true,
                     UserId = userId,
                     InsertDateUtc = DateTime.UtcNow,
-                    ModificationDateUtc = DateTime.UtcNow,
+                    ModificationDateUtc = DateTime.UtcNow
                 };
 
                 await _reservationRepository.AddAsync(reservation);

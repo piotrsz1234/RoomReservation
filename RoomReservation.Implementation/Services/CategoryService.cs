@@ -6,8 +6,10 @@ using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Implementation.Services {
-    internal sealed class CategoryService : ServiceBase, ICategoryService {
+namespace RoomReservation.Implementation.Services
+{
+    internal sealed class CategoryService : ServiceBase, ICategoryService
+    {
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService(ILogger<CategoryService> logger, ICategoryRepository categoryRepository) : base(logger)
@@ -39,10 +41,10 @@ namespace RoomReservation.Implementation.Services {
                 if (result is null)
                     return null;
 
-                return new CategoryDto()
+                return new CategoryDto
                 {
                     Id = result.Id,
-                    Name = result.Name,
+                    Name = result.Name
                 };
             }
             catch (Exception e)

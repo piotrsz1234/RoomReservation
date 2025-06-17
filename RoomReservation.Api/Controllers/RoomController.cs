@@ -2,12 +2,14 @@
 using RoomReservation.Domain.Contracts.Room.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Api.Controllers {
+namespace RoomReservation.Api.Controllers
+{
     [Route("[controller]/[action]")]
     [ApiController]
-    public class RoomController : Controller {
+    public class RoomController : Controller
+    {
         private readonly IRoomService _roomService;
-        
+
         public RoomController(IRoomService roomService)
         {
             _roomService = roomService;
@@ -17,7 +19,7 @@ namespace RoomReservation.Api.Controllers {
         public async Task<IActionResult> Browse(int buildingId)
         {
             var data = await _roomService.BrowseAsync(buildingId);
-            
+
             return Ok(data);
         }
 
@@ -25,10 +27,10 @@ namespace RoomReservation.Api.Controllers {
         public async Task<IActionResult> GetOne(int id)
         {
             var data = await _roomService.GetOneAsync(id);
-            
+
             return Ok(data);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddEdit([FromBody] AddEditRoomModel model)
         {
@@ -36,7 +38,7 @@ namespace RoomReservation.Api.Controllers {
 
             if (result is not null)
                 return StatusCode(500, result);
-            
+
             return Ok(result);
         }
     }

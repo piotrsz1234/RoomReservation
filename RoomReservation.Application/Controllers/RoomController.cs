@@ -3,8 +3,10 @@ using RoomReservation.Domain.Contracts.Room.Dtos;
 using RoomReservation.Domain.Contracts.Room.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Application.Controllers {
-    public class RoomController : Controller {
+namespace RoomReservation.Application.Controllers
+{
+    public class RoomController : Controller
+    {
         private readonly IRoomService _roomService;
 
 
@@ -17,20 +19,18 @@ namespace RoomReservation.Application.Controllers {
         public async Task<IActionResult> Browse(int buildingId)
         {
             var data = await _roomService.BrowseAsync(buildingId);
-            
+
             return View(data);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> AddEdit(int? id = null)
         {
             RoomDto? room = null;
-            if (id is not null) {
-                room = await _roomService.GetOneAsync(id.Value);
-            }
+            if (id is not null) room = await _roomService.GetOneAsync(id.Value);
             return View(room ?? new RoomDto());
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddEdit(AddEditRoomModel model)
         {
@@ -39,8 +39,8 @@ namespace RoomReservation.Application.Controllers {
             var result = await _roomService.AddEditAsync(model);
 
             if (result is null)
-                return RedirectToAction("Browse", new {buildingId = model.BuildingId});
-            
+                return RedirectToAction("Browse", new { buildingId = model.BuildingId });
+
             return View(result);
         }
     }

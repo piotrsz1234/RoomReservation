@@ -9,10 +9,10 @@ namespace RoomReservation.Application.Services
 {
     public class BuildingService : BaseService, IBuildingService
     {
-
         public BuildingService(HttpClient client, IConfiguration configuration, SessionHelper sessionHelper) : base(client, configuration, sessionHelper)
         {
         }
+
         public async Task<IReadOnlyCollection<BuildingDto>> BrowseAsync()
         {
             return await Client.GetCall<IReadOnlyCollection<BuildingDto>>(new Uri(BaseUrl, "Building/Browse"));
@@ -30,7 +30,7 @@ namespace RoomReservation.Application.Services
 
         public async Task RemoveAsync(int id)
         {
-            await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Building/Remove"), new RemoveModel() { Id = id });
+            await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Building/Remove"), new RemoveModel { Id = id });
         }
     }
 }

@@ -2,8 +2,10 @@
 using RoomReservation.Domain.Contracts.Buiding.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Application.Controllers {
-    public class BuildingController : Controller {
+namespace RoomReservation.Application.Controllers
+{
+    public class BuildingController : Controller
+    {
         private readonly IBuildingService _buildingService;
 
         public BuildingController(IBuildingService buildingService)

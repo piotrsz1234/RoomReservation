@@ -1,6 +1,8 @@
-﻿namespace RoomReservation.Domain.Enums {
-    public enum UserRole : byte {
+﻿namespace RoomReservation.Domain.Enums
+{
+    public enum UserRole : byte
+    {
         User = 1,
-        Admin = 2,
+        Admin = 2
     }
 }

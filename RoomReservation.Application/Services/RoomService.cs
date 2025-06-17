@@ -14,7 +14,7 @@ namespace RoomReservation.Application.Services
 
         public async Task<IReadOnlyCollection<RoomDto>> BrowseAsync(int buildingId)
         {
-            return await Client.GetCall<IReadOnlyCollection<RoomDto>>(new Uri(BaseUrl, $"Room/Browse").SetQueryParam("buildingId", buildingId).ToUri());
+            return await Client.GetCall<IReadOnlyCollection<RoomDto>>(new Uri(BaseUrl, "Room/Browse").SetQueryParam("buildingId", buildingId).ToUri());
         }
 
         public async Task<RoomDto?> AddEditAsync(AddEditRoomModel model)
@@ -24,7 +24,7 @@ namespace RoomReservation.Application.Services
 
         public async Task<RoomDto?> GetOneAsync(int id)
         {
-            return await Client.GetCall<RoomDto?>(new Uri(BaseUrl, $"Room/GetOne").SetQueryParam("id", id).ToUri());
+            return await Client.GetCall<RoomDto?>(new Uri(BaseUrl, "Room/GetOne").SetQueryParam("id", id).ToUri());
         }
     }
 }

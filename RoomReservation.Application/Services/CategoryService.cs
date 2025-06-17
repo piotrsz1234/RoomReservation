@@ -30,7 +30,7 @@ namespace RoomReservation.Application.Services
 
         public async Task<bool> RemoveAsync(int id)
         {
-            return await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Building/Remove"), new RemoveModel() { Id = id });
+            return await Client.PostCall<RemoveModel>(new Uri(BaseUrl, "Building/Remove"), new RemoveModel { Id = id });
         }
     }
 }

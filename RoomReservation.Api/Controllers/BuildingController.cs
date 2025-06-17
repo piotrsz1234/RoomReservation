@@ -4,10 +4,12 @@ using RoomReservation.Domain.Contracts.Buiding.Dtos;
 using RoomReservation.Domain.Contracts.Buiding.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Api.Controllers {
+namespace RoomReservation.Api.Controllers
+{
     [ApiController]
     [Route("[controller]/[action]")]
-    public class BuildingController : Controller {
+    public class BuildingController : Controller
+    {
         private readonly IBuildingService _buildingService;
 
         public BuildingController(IBuildingService buildingService)
@@ -22,7 +24,7 @@ namespace RoomReservation.Api.Controllers {
 
             return result;
         }
-        
+
         [HttpGet]
         public async Task<BuildingDto?> GetOne(int id)
         {

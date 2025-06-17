@@ -8,8 +8,10 @@ using RoomReservation.Implementation.DbContexts;
 using RoomReservation.Implementation.Repositories;
 using RoomReservation.Implementation.Services;
 
-namespace RoomReservation.Implementation {
-    public static class Extensions {
+namespace RoomReservation.Implementation
+{
+    public static class Extensions
+    {
         public static IServiceCollection AddRoomReservationImplementation(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddScoped<IBuildingRepository, BuildingRepository>();
@@ -27,13 +29,13 @@ namespace RoomReservation.Implementation {
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IReservationService, ReservationService>();
-            
+
             services.AddDbContext<MainDbContext>(builder =>
             {
                 builder.UseSqlServer(configuration.GetConnectionString(Constants
                     .MainDbContextConnectionStringNameMainDbContextConnectionStringName));
             });
-            
+
             return services;
         }
     }

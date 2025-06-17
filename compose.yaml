@@ -1,0 +1,45 @@
+﻿services:
+  application:
+    container_name: "app"
+    image: roomreservation.application
+    build:
+      context: .
+      dockerfile: RoomReservation.Application/Dockerfile
+    depends_on:
+      - api
+    ports:
+      - "7224:8080"
+  api:
+    container_name: "api"
+    image: roomreservation.api
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: RoomReservation.Api/Dockerfile
+    ports:
+      - "7225:8080"
+    depends_on:
+      - sqldata
+    volumes:
+      - ./aspnetapp.pfx:/https/aspnetapp.pfx:ro
+      - ./dataprotection-keys:/root/.aspnet/DataProtection-Keys
+  sqldata:
+    container_name: data
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5434:1400"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${Sa_Password:-Pass@word} -Q 'SELECT 1' || exit 1" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+volumes:
+  mssql_data:
+  keys:

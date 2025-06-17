@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RoomReservation.Api.Middleware;
 using RoomReservation.Domain.Contracts;
 using RoomReservation.Domain.Contracts.Category.Dtos;
 using RoomReservation.Domain.Contracts.Category.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Api.Controllers {
+namespace RoomReservation.Api.Controllers
+{
     [BasicAuthenticationFilter]
     [Route("[controller]/[action]")]
     [ApiController]
-    public class CategoryController : Controller {
+    public class CategoryController : Controller
+    {
         private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
@@ -25,7 +26,7 @@ namespace RoomReservation.Api.Controllers {
 
             return Ok(result);
         }
-        
+
         [HttpGet]
         public async Task<CategoryDto?> GetOne(int id)
         {

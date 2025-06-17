@@ -1,15 +1,17 @@
 ﻿using RoomReservation.Domain;
 
-namespace RoomReservation.Api {
-    public sealed class SessionHelper {
+namespace RoomReservation.Api
+{
+    public sealed class SessionHelper
+    {
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        private HttpContext? HttpContext => _httpContextAccessor.HttpContext;
 
         public SessionHelper(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
+        private HttpContext? HttpContext => _httpContextAccessor.HttpContext;
 
         public int? UserId
         {

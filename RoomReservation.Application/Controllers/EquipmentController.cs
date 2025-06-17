@@ -2,8 +2,10 @@
 using RoomReservation.Domain.Contracts.Equipment.Models;
 using RoomReservation.Domain.Services;
 
-namespace RoomReservation.Application.Controllers {
-    public class EquipmentController : Controller {
+namespace RoomReservation.Application.Controllers
+{
+    public class EquipmentController : Controller
+    {
         private readonly IEquipmentService _equipmentService;
 
         public EquipmentController(IEquipmentService equipmentService)
